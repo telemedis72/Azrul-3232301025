@@ -1,0 +1,230 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Notifikasi */
+.notification {
+    position: fixed;
+    top: 10%; /* Posisi tengah vertikal */
+    left: 50%; /* Posisi tengah horizontal */
+    transform: translate(-50%, -50%) scale(0); /* Mulai dari tengah dan skala 0 */
+    background: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.5s ease forwards; /* Animasi muncul */
+    justify-content: center;
+}
+
+@keyframes popIn {
+    from {
+        transform: translate(-50%, -50%) scale(0); /* Mulai dari skala 0 di tengah */
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1); /* Berakhir dengan skala 1 di tengah */
+    }
+}
+
+
+/* Loading Spinner */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Container Login */
+.login-container {
+    background: url('img/gambar.gif');
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 1s ease forwards;
+    transform: perspective(800px) rotateX(5deg);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+/* Input Field */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    transform: translateY(-2px);
+}
+
+input:active {
+    transform: translateY(0);
+}
+
+/* Password Container */
+.password-container {
+    position: relative;
+}
+
+.password-container i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #3498db;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    display: block; /* Pastikan tombol menjadi block-level element */
+    margin-left: auto; /* Membantu memusatkan tombol jika di dalam kontainer */
+    margin-right: auto; /* Membantu memusatkan tombol jika di dalam kontainer */
+    justify-content: center;
+}
+
+button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    justify-content: center;
+}
+
+button:active {
+    transform: translateY(0);
+    justify-content: center;
+}
+
+/* Pesan Error */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%; /* Pastikan pesan error mengambil lebar penuh */
+    display: inline-block; /* Agar pesan error dapat dipusatkan */
+    margin-left: auto; /* Memusatkan pesan error secara horizontal */
+    margin-right: auto; /* Memusatkan pesan error secara horizontal */
+    justify-content: center;
+}
+
+
+/* Lupa Password dan Register Link */
+.forgot-password, .register-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.forgot-password a,
+.register-text a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forgot-password a:hover,
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #3498db; /* Warna saat dicentang (modern browser support) */
+    cursor: pointer;
+  }
+  

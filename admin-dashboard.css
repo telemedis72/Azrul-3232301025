@@ -1,0 +1,616 @@
+/* RESET & FONT */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* =================== */
+/* === HALAMAN INTRO === */
+/* =================== */
+body.intro {
+  height: 100vh;
+  background: linear-gradient(135deg, #2980b9, #6dd5fa);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.center-container {
+  max-width: 600px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fadeIn 0.8s ease-in-out;
+  transition: transform 0.3s ease;
+}
+
+.center-container h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.center-container p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #f0f0f0;
+}
+
+.center-container .btn {
+  padding: 12px 26px;
+  background-color: #ffffff;
+  color: #2980b9;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.center-container .btn:hover {
+  background-color: #ecf0f1;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .center-container {
+    padding: 30px 20px;
+  }
+  .center-container h1 {
+    font-size: 28px;
+  }
+  .center-container p {
+    font-size: 16px;
+  }
+  .center-container .btn {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+/* =================== */
+/* === DASHBOARD UI === */
+/* =================== */
+body.dashboard {
+  background: linear-gradient(to bottom right, #f4f6f8, #e3e8ee);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  color: #2c3e50;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.03);
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s ease;
+}
+
+
+/* Sidebar - Semi 3D Stylish */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: linear-gradient(180deg, #2c3e50, #34495e);
+  color: #ecf0f1;
+  transition: left 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1001;
+  padding: 25px 20px;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.close-btn:hover {
+  transform: scale(1.15);
+}
+
+.sidebar-menu li {
+  list-style: none;
+  margin: 18px 0;
+}
+
+.sidebar-menu li a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-menu li a:hover {
+  background-color: #1abc9c;
+  color: #fff;
+  transform: translateX(4px);
+}
+
+/* Main Content - Semi 3D Stylish */
+.main-content {
+  padding: 70px 20px 30px 20px; /* Top padding untuk navbar */
+  margin-left: 0;
+  transition: margin-left 0.3s ease, box-shadow 0.3s ease;
+  background: #f9f9f9;
+  min-height: 100vh;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 16px 16px 0 0;
+}
+
+/* Saat sidebar aktif, geser konten */
+.sidebar.active ~ .main-content {
+  margin-left: 260px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* Navbar - Semi 3D Stylish */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #2980b9, #3498db);
+  color: white;
+  padding: 15px 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger icon */
+.hamburger {
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.hamburger:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu style */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+}
+
+.navbar-menu li a {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.1), inset -1px -1px 2px rgba(0,0,0,0.1);
+}
+
+.navbar-menu li a:hover {
+  color: #1abc9c;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Content Section */
+.content-section {
+  padding: 40px;
+  background: linear-gradient(to bottom right, #ffffff, #f9f9fb);
+  border-radius: 20px;
+  margin-top: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Title */
+.title {
+  font-size: 58px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #CC0202;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Responsive untuk HP */
+@media (max-width: 600px) {
+  .title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+}
+
+
+/* Subtitle */
+.subtitle {
+  font-size: 40px;
+  font-weight: 600;
+  color: #005DC7;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+}
+
+/* Description */
+.description {
+  font-size: 16px;
+  color: #000;
+  text-align: left;
+  width: 100%; /* Isi penuh container */
+  padding: 15px 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  line-height: 1.7;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Indicator Title */
+.indicator-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Cards */
+.bpm-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.card {
+  flex: 1 1 280px;
+  background: #ecf0f1;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* BPM and BP */
+.bpm, .bp {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.bpm:hover, .bp:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* BPM Colors */
+.bpm.low {
+  background: #ff1313;
+  border-left: 6px solid #e01a04;
+  box-shadow: 0 4px 12px rgba(255, 19, 19, 0.2);
+}
+.bpm.normal {
+  background: #31ff64;
+  border-left: 6px solid #0dbb56;
+  box-shadow: 0 4px 12px rgba(49, 255, 100, 0.2);
+}
+.bpm.high {
+  background: #ff8d2a;
+  border-left: 6px solid #ff7700;
+  box-shadow: 0 4px 12px rgba(255, 141, 42, 0.2);
+}
+
+/* BP Colors */
+.bp.hypotension {
+  background: #ff1900;
+  border-left: 6px solid #c41400;
+  box-shadow: 0 4px 12px rgba(255, 25, 0, 0.2);
+}
+.bp.normal {
+  background: #00ff40;
+  border-left: 6px solid #00a545;
+  box-shadow: 0 4px 12px rgba(0, 255, 64, 0.2);
+}
+.bp.hypertension-stage-1 {
+  background: #ff7700;
+  border-left: 6px solid #e67e22;
+  box-shadow: 0 4px 12px rgba(255, 119, 0, 0.2);
+}
+.bp.hypertension-stage-2 {
+  background: #ffa600;
+  border-left: 6px solid #b46f00;
+  box-shadow: 0 4px 12px rgba(255, 166, 0, 0.2);
+}
+.bp.hypertensive {
+  background: #b4000f;
+  border-left: 6px solid #800d00;
+  box-shadow: 0 4px 12px rgba(180, 0, 15, 0.2);
+}
+
+/* QR Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.top-bar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.top-bar input:focus {
+  border-color: #2980b9;
+  box-shadow: 0 4px 16px rgba(41, 128, 185, 0.2);
+}
+
+#scan-logo {
+  font-size: 30px;
+  color: #2980b9;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#scan-logo:hover {
+  color: #1abc9c;
+  transform: scale(1.1);
+}
+
+
+/* Form Input - Semi 3D & Modern */
+.input-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-size: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fdfdfd;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05), inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #2980b9;
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.05),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.7),
+    0 0 8px rgba(41, 128, 185, 0.2);
+  background: #fff;
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan untuk efek 3D */
+  }
+  .sidebar.active ~ .main-content {
+    margin-left: 220px;
+  }
+  .navbar-menu {
+    display: none;
+  }
+  .content-section {
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan pada konten untuk kesan kedalaman */
+    border-radius: 12px;
+  }
+  .card {
+    width: 100%;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Efek bayangan pada card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15); /* Perbesar bayangan saat hover */
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    left: -100%;
+    box-shadow: none; /* Hilangkan bayangan saat sidebar disembunyikan */
+  }
+  .sidebar.active {
+    left: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan lembut saat sidebar aktif */
+  }
+  .main-content {
+    margin-left: 0 !important;
+  }
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Bayangan pada top-bar */
+  }
+  #scan-logo {
+    align-self: flex-end;
+    transform: scale(1.1); /* Efek sedikit pembesaran pada logo */
+    transition: transform 0.3s ease;
+  }
+  .title, .subtitle {
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan pada teks untuk kesan 3D */
+  }
+}
+
+/* Styling untuk tombol Ubah Password dengan warna biru tua dan efek semi 3D */
+button[type="submit"] {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  background: #2c3e50; /* Warna biru tua */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: #34495e; /* Biru tua lebih gelap */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar */
+  transform: translateY(-4px); /* Efek 3D mengangkat tombol */
+}
+
+button[type="submit"]:active {
+  background: #2c3e50; /* Warna biru tua kembali */
+  transform: translateY(2px); /* Efek 3D lebih dalam saat ditekan */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan lebih kecil saat ditekan */
+}
+
+/* Styling untuk pesan error */
+#error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  display: none; /* pesan error disembunyikan secara default */
+}
+
+/* Styling untuk akun list */
+#akun-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.akun {
+  background: linear-gradient(145deg, #f0f8ff, #e0f7fa);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.akun:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3), -8px -8px 15px rgba(255, 255, 255, 0.3);
+  background-color: #b2ebf2; /* sedikit perubahan warna saat hover */
+}
+
+.akun h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.akun p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Responsif untuk tampilan mobile */
+@media (max-width: 768px) {
+  #akun-list {
+      padding: 10px;
+  }
+
+  .akun {
+      padding: 15px;
+  }
+
+  .akun h2 {
+      font-size: 1.2rem;
+  }
+}
+
+/* Untuk Judul DATA USER */
+.content-section h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 20px;
+  text-align: center; /* Menjadikan teks berada di tengah */
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detail Akun</title>
+  <link rel="stylesheet" href="user-detail.css" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul id="nav-links">
+      <li><a href="#" onclick="showContent('data')">Data Sensor</a></li>
+      <li><a href="#" onclick="showContent('manual')">Isi Manual</a></li>
+      <li><a href="#" onclick="showContent('rekap')">Rekap DATA</a></li>
+    </ul>
+  </nav>
+
+  <div id="content">
+    <!-- Data Sensor -->
+    <div id="data" class="content-section" style="display: none;">
+      <h1>Pengukuran Kesehatan</h1>
+      <div class="measurement">
+        <div>
+          <h2>BPM: <span id="bpm">-</span></h2>
+          <p>Status: <span id="statusBpm">-</span></p>
+        </div>
+        <div>
+          <h2>Sistolik: <span id="sistole">-</span></h2>
+          <p>Status: <span id="statusSistol">-</span></p>
+        </div>
+        <div>
+          <h2>Diastolik: <span id="diastole">-</span></h2>
+          <p>Status: <span id="statusDiastol">-</span></p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button onclick="saveData()">Save Data</button>
+      </div>
+    </div>
+
+    <!-- Isi Manual -->
+    <div id="manual" class="content-section" style="display: none;">
+      <h1>Input Data Pengukuran</h1>
+      <label for="editTextBPM">BPM:</label>
+      <input type="number" id="editTextBPM" placeholder="Masukkan BPM" />
+
+      <label for="editTextSistolik">Tekanan Sistolik:</label>
+      <input type="number" id="editTextSistolik" placeholder="Masukkan Sistolik" />
+
+      <label for="editTextDiastolik">Tekanan Diastolik:</label>
+      <input type="number" id="editTextDiastolik" placeholder="Masukkan Diastolik" />
+
+      <button id="btnSave">Simpan Data</button>
+
+      <div id="save" class="data">
+        <h2>Data Tersimpan</h2>
+        <ul id="manualHistoryList"></ul>
+      </div>
+    </div>
+
+    <!-- Rekap Nilai -->
+    <div id="rekap" class="content-section" style="display: none;">
+      <h2>Daftar Pengukuran</h2>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
+
+  <script src="user-detail.js"></script>
+
+  <script>
+    function showContent(sectionId) {
+      const sections = document.getElementsByClassName('content-section');
+      for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = 'none';
+      }
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    window.onload = function () {
+      showContent('data');
+    };
+
+    // Handle menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

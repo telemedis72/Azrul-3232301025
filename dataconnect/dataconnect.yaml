@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "webtelemedis"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "webtelemedis-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

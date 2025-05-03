@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard TeleMedis</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="admin-dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    
+    <!-- QR Scanner & Firebase -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>TeleMedis</h2>
+            <button class="close-btn" onclick="toggleSidebar()">&#10005;</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" onclick="showContent('home')">🏠 Home</a></li>
+            <li><a href="#" onclick="showContent('data-user')">🩺 Pengukuran</a></li>
+            <li><a href="#" onclick="showContent('setting')">⚙️ Setting</a></li>
+            <li><a href="login.html" id="logoutButton">🚪 Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Konten Utama -->
+    <div class="main-content" id="mainContent">
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="index.html#footer">Tentang Kami</a></li>
+            </ul>
+        </div>
+
+        <!-- Konten HOME -->
+        <div class="content-section" id="home">
+            <h1 class="title">WAWASAN</h1>
+            <h2 class="subtitle">INFORMASI KESEHATAN</h2>
+            <p class="description">Detak jantung adalah jumlah kali jantung Anda berdetak per menit .Detak jantung bervariasi dari satu orang ke orang lain dan dapat di pengaruhi oleh berbagai faktor seperti usia, aktivitas fisik, kondisi kesehatan , dan stres. Detak jantung berfungsi untuk memompa darah yang kaya oksigen dan nutrisi ke seluruh tubuh</p>
+            <div class="card">
+                <div class="indicator">
+                    <div class="bpm low">❤️ Lambat (&lt; 60 bpm)</div>
+                    <div class="bpm normal">💚 Normal (60 - 100 bpm)</div>
+                    <div class="bpm high">🔥 Cepat (&gt; 100 bpm)</div>
+                </div>
+            </div>
+            <p class="description">Tekanan darah adalah tekanan yang diberikan oleh darah terhadap dinding arteri saat di pompa oleh jantung. Tekanan darah diukur dalam dua angka: sistolik dan diastolik.</p>
+            <ul>
+                <li>Tekanan Sistolik: Tekanan tertinggi saat jantung berkontraksi.</li>
+                <li>Tekanan Diastolik: Tekanan terendah saat jantung beristirahat.</li>
+            </ul>
+            <div class="card">
+                <div class="indicator">
+                    <div class="bp hypotension">🩸 Hypotension (SYS &lt;90 DIA&lt;70)</div>
+                    <div class="bp normal">🟢 Normal (SYS 90–119 DIA 60–79)</div>
+                    <div class="bp hypertension-stage-1">🟠 Stage 1</div>
+                    <div class="bp hypertension-stage-2">🟡 Stage 2</div>
+                    <div class="bp hypertensive">🔴 Hypertensive</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten DATA USER -->
+        <div class="content-section" id="data-user" style="display: none;">
+            <h1>DATA USER</h1>
+            <div class="top-bar">
+                <input type="text" id="search-input" placeholder="Cari nama..." onkeyup="filterData()" />
+                <i class="fas fa-qrcode" id="scan-logo" onclick="startScan()"></i>
+            </div>
+            <div id="scan-result"></div>
+            <div id="akun-list"></div>
+        </div>
+
+        <!-- Konten SETTING -->
+        <div class="content-section" id="setting" style="display: none;">
+            <h1>Ubah Password</h1>
+            <div class="input-group">
+                <label for="old-password">Password Lama</label>
+                <input type="password" id="old-password" required />
+            </div>
+            <div class="input-group">
+                <label for="new-password">Password Baru</label>
+                <input type="password" id="new-password" required />
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Konfirmasi Password Baru</label>
+                <input type="password" id="confirm-password" required />
+            </div>
+            <button type="submit">Ubah Password</button>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

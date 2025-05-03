@@ -1,0 +1,97 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('img/gambar.gif') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+
+.container {
+    background: linear-gradient(135deg, #66b2ff, #005dc7);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+    transition: all 0.3s ease-in-out;
+    color: #fff; /* Warna teks tetap putih agar kontras */
+}
+
+
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+    color: #2c3e50;
+    text-align: center;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #007BFF;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+p {
+    font-size: 18px;
+    margin: 12px 0;
+    color: #555;
+    padding: 10px 15px;
+    background-color: #f9f9f95d;
+    border-left: 5px solid #007BFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+/* Highlighted Data */
+#tanggal,
+#waktu,
+#bpm,
+#sistolik,
+#diastolik {
+    font-weight: 600;
+    color: #333;
+}
+
+#bpm {
+    color: #27ae60; /* Green for BPM */
+}
+
+#sistolik {
+    color: #2980b9; /* Blue for Sistolik */
+}
+
+#diastolik {
+    color: #e74c3c; /* Red for Diastolik */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 25px 20px;
+        margin: 15px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TeleMedis</title>
+    <link rel="stylesheet" href="login.css">
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="notification" class="notification"></div>
+
+    <div id="loading-spinner" class="spinner-overlay" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="login-container">
+        <h2 class="login-title">Selamat Datang</h2>
+        <p class="login-subtitle">Silakan masuk untuk melanjutkan</p>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            
+            <div class="input-group password-container">
+                <input type="password" id="password" placeholder="Password" required>
+                <i class="fas fa-eye" id="togglePassword"></i>
+            </div>
+            
+            <button type="submit" id="loginButton">Login</button>
+
+            <p id="error-message" class="error-message"></p>
+            
+            <p id="forgot-password" class="forgot-password" style="display:none;">
+                <a href="#">Lupa Password?</a>
+            </p>
+
+            <p class="register-text">
+                Belum punya akun? <a href="#" id="register-link">Daftar di sini</a>
+            </p>
+        </form>
+    </div>
+
+    <!-- Firebase SDK dengan Modul -->
+    <script type="module" src="login.js"></script>
+</body>
+</html>
