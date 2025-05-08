@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat Pengguna</title>
+  <link rel="stylesheet" href="chat-user.css">
+</head>
+<body>
+
+<div id="chat-box"></div>
+
+<div id="input-area">
+  <label for="fileInput" id="attachBtn">➕</label>
+  <input type="file" id="fileInput" />
+  <input type="text" id="message" placeholder="Tulis pesan..." />
+  <button id="sendBtn">🎤</button>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<!-- Script chat -->
+<script src="chat-user.js"></script>
+</body>
+</html>

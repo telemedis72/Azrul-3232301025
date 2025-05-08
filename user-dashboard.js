@@ -17,8 +17,7 @@ function showContent(section) {
         activeSection.style.display = 'block';
     }
 
-    // Tutup sidebar setelah memilih menu
-    toggleSidebar();
+    toggleSidebar(); // Tutup sidebar setelah memilih menu
 }
 
 // ==== Konfigurasi Firebase ====
@@ -37,11 +36,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth();
-
-// ==== Fungsi untuk mengubah nama ke format path Firebase ====
-function formatNamaUntukFirebase(nama) {
-    return nama.trim().replace(/\s+/g, "_").toUpperCase();
-}
 
 // ==== Fungsi Memuat Riwayat Pengukuran ====
 function loadRiwayat(namaUser) {
@@ -98,6 +92,7 @@ function logoutUser() {
     auth.signOut()
         .then(() => {
             alert("Berhasil logout.");
+            localStorage.removeItem("loggedInUser");
             window.location.href = "login.html";
         })
         .catch(error => {
@@ -109,22 +104,25 @@ function logoutUser() {
 window.onload = function () {
     auth.onAuthStateChanged(user => {
         if (user) {
-            const namaUser = user.displayName || "PENGGUNA";
-            const pathNama = formatNamaUntukFirebase(namaUser);
+            const namaUser = (user.displayName || "PENGGUNA").trim(); // Ambil displayName dari Firebase Auth
+            const pathNama = namaUser; // Nama pengguna digunakan langsung tanpa perubahan
+
+            // Simpan ke localStorage untuk referensi nanti
+            const currentUser = localStorage.setItem("loggedInUser", pathNama);
 
             const nameDisplay = document.getElementById("userNameDisplay");
             if (nameDisplay) {
                 nameDisplay.textContent = namaUser;
             }
 
-            loadRiwayat(pathNama);
+            loadRiwayat(pathNama); // Memuat riwayat pengukuran berdasarkan nama pengguna
         } else {
             alert("Anda belum login. Silakan login terlebih dahulu.");
             window.location.href = "login.html";
         }
     });
 
-    // ==== Tambahkan event listener untuk tombol logout ====
+    // Tambahkan event listener untuk tombol logout
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", logoutUser);

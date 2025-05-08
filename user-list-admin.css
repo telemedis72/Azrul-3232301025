@@ -1,0 +1,124 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Gaya untuk <h2> Daftar Admin */
+h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Efek hover pada h2 */
+h2:hover {
+  transform: scale(1.1);
+  color: #007BFF;
+}
+
+/* Gaya untuk input pencarian */
+#searchBox {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#searchBox:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* Gaya untuk daftar admin */
+#adminList {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+#adminList:hover {
+  transform: scale(1.02);
+}
+
+/* Gaya untuk setiap item admin dalam daftar */
+.admin-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Efek hover pada item admin */
+.admin-item:hover {
+  background-color: #e7f3ff;
+  transform: translateX(5px);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.15);
+  cursor: pointer;
+}
+
+/* Gaya untuk item admin terakhir */
+.admin-item:last-child {
+  border-bottom: none;
+}
+
+/* Animasi untuk transisi */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#adminList {
+  animation: pulse 2s infinite ease-in-out;
+}

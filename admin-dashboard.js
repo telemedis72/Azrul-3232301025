@@ -36,6 +36,24 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// Cek status login saat halaman dibuka
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        const namaUser = (user.displayName || "PENGGUNA").trim();
+        localStorage.setItem("loggedInUser", namaUser);
+        window.adminName = namaUser;
+
+        // Jika ada fungsi khusus untuk admin, bisa dipanggil di sini:
+        // loadAdmins(namaUser);
+
+        // Muat data akun setelah login terverifikasi
+        tampilkanDataAkun();
+    } else {
+        alert("Anda belum login. Silakan login terlebih dahulu.");
+        window.location.href = "login.html";
+    }
+});
+
 // Menyimpan data akun
 let akunData = [];
 let dataSiap = false;
@@ -89,8 +107,9 @@ function filterData() {
     });
 }
 
-// Fungsi untuk mengarahkan ke halaman sensor
+// Fungsi untuk mengarahkan ke halaman sensor dan menyimpan nama pengguna ke localStorage
 function redirectToSensorPage(namaUser) {
+    localStorage.setItem("loggedInUser", namaUser); // simpan nama user ke localStorage
     window.location.href = `user-detail.html?user=${encodeURIComponent(namaUser)}`;
 }
 
@@ -122,6 +141,7 @@ function startScan() {
             );
 
             if (hasil.length > 0) {
+                localStorage.setItem("loggedInUser", hasil[0].nama);
                 redirectToSensorPage(hasil[0].nama);
             } else {
                 scanResultElement.innerText = 'Akun tidak ditemukan.';
@@ -134,9 +154,6 @@ function startScan() {
         scanResultElement.innerText = `Gagal memulai scan: ${err}`;
     });
 }
-
-// Jalankan saat halaman dibuka
-window.onload = tampilkanDataAkun;
 
 // Ambil elemen form dan input untuk ubah password
 const form = document.getElementById('change-password-form');
@@ -173,11 +190,8 @@ form.addEventListener('submit', (event) => {
     });
 });
 
-// Pastikan Firebase sudah di-inisialisasi sebelum file ini dipanggil
-
-// Tunggu seluruh konten HTML dimuat dulu
+// Tunggu seluruh konten HTML dimuat
 document.addEventListener('DOMContentLoaded', function () {
-    // Tombol Logout
     const logoutBtn = document.getElementById('logoutButton');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function (event) {
@@ -187,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (user) {
                 firebase.auth().signOut().then(() => {
                     alert("Logout berhasil");
+                    localStorage.removeItem("loggedInUser");
                     window.location.href = 'login.html';
                 }).catch((error) => {
                     alert("Gagal logout: " + error.message);
@@ -197,4 +212,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     } else {
         console.error("Elemen logoutButton tidak ditemukan.");
-    }});
+    }
+});

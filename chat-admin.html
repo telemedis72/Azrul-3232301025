@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat Admin</title>
+  <link rel="stylesheet" href="chat-admin.css">
+</head>
+<body>
+
+<div id="chat-box"></div>
+
+<div id="input-area">
+  <label for="fileInput" id="attachBtn">➕</label>
+  <input type="file" id="fileInput" />
+  <input type="text" id="message" placeholder="Tulis pesan..." />
+  <button id="sendBtn">🎤</button>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<!-- Tambahkan ini di HTML sebelum script JavaScript kamu -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+
+<script src="chat-admin.js"></script>
+
+</body>
+</html>

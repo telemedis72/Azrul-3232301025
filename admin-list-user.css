@@ -1,0 +1,118 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+h2 {
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #5c6bc0;
+  outline: none;
+}
+
+.user {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.user:hover {
+  background-color: #e3f2fd;
+  transform: translateY(-3px);
+}
+
+.user-left {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  transition: border-color 0.3s;
+}
+
+.profile-img:hover {
+  border-color: #5c6bc0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.user-time {
+  font-size: 0.9em;
+  color: #777;
+}
+
+.unread-count {
+  background: #ff4081;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 50%;
+  font-size: 0.9em;
+  font-weight: bold;
+  position: relative;
+  top: -5px;
+}
+
+.user-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .user {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .user-left {
+    margin-bottom: 10px;
+  }
+
+  .user-right {
+    margin-top: 10px;
+  }
+}
