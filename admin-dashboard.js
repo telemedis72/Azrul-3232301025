@@ -39,6 +39,8 @@ const database = firebase.database();
 // Cek status login saat halaman dibuka
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
+        console.log("DISPLAY NAME SAAT LOGIN:", user.displayName);
+        
         const namaUser = (user.displayName || "PENGGUNA").trim();
         localStorage.setItem("loggedInUser", namaUser);
         window.adminName = namaUser;
@@ -53,6 +55,7 @@ firebase.auth().onAuthStateChanged(user => {
         window.location.href = "login.html";
     }
 });
+
 
 // Menyimpan data akun
 let akunData = [];

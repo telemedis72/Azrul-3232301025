@@ -27,18 +27,16 @@ const sendBtn = document.getElementById("sendBtn");
 const fileInput = document.getElementById("fileInput");
 
 let adminName, userName, path;
-let isRecording = false;
-let recordStart;
 
 // Format waktu Indonesia
 function formatWaktu(timestamp) {
   if (!timestamp) return "";
   const date = new Date(timestamp);
   return date.toLocaleString("id-ID", {
-    hour: "2-digit",
-    minute: "2-digit",
-    day: "2-digit",
-    month: "short"
+      hour: "2-digit",
+      minute: "2-digit",
+      day: "2-digit",
+      month: "short"
   });
 }
 
@@ -46,38 +44,46 @@ function formatWaktu(timestamp) {
 function loadChatInterface() {
   const urlParams = new URLSearchParams(window.location.search);
   userName = urlParams.get("to"); // Contoh: "AZRUL ASWAT"
-  adminName = localStorage.getItem("loggedInUser"); // Contoh: "AZRUL"
+  adminName = localStorage.getItem("loggedInUser"); // Nama admin yang tersimpan di localStorage
 
   if (!userName || !adminName) {
-    alert("Nama pengguna tidak tersedia.");
-    return;
+      alert("Nama pengguna tidak tersedia.");
+      return;
   }
 
-  path = `${userName}|${adminName}`; // Contoh: "AZRUL|AZRUL ASWAT"
+  path = `${userName}|${adminName}`; // Contoh: "AZRUL ASWAT|AZRUL"
+  console.log("Path yang digunakan untuk chat:", path); // Debug log untuk path
+
   const chatRef = db.ref(`chats/${path}/pesan`).orderByChild("timestamp");
-  
+
   chatRef.on("value", snapshot => {
-    chatBox.innerHTML = "";
-    const data = snapshot.val();
-    if (data) {
-      Object.entries(data).forEach(([id, msg]) => {
-        const div = document.createElement("div");
-        div.classList.add("msg", msg.from === adminName ? "sent" : "received");
-        if (msg.type === "file") {
-          div.innerHTML = `<a href="${msg.content}" target="_blank">📎 File</a>`;
-        } else if (msg.type === "audio") {
-          div.innerHTML = `<audio controls src="${msg.content}"></audio>`;
-        } else {
-          div.textContent = msg.content;
-        }
-        const ts = document.createElement("div");
-        ts.className = "timestamp";
-        ts.textContent = formatWaktu(msg.timestamp);
-        div.appendChild(ts);
-        chatBox.appendChild(div);
-      });
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+      chatBox.innerHTML = "";
+      const data = snapshot.val();
+      if (!data) {
+          // Jika tidak ada pesan, tampilkan pesan info
+          const div = document.createElement("div");
+          div.classList.add("msg", "info");
+          div.textContent = "Tidak ada pesan untuk ditampilkan.";
+          chatBox.appendChild(div);
+      } else {
+          Object.entries(data).forEach(([id, msg]) => {
+              const div = document.createElement("div");
+              div.classList.add("msg", msg.from === adminName ? "sent" : "received");
+              if (msg.type === "file") {
+                  div.innerHTML = `<a href="${msg.content}" target="_blank">📎 File</a>`;
+              } else if (msg.type === "audio") {
+                  div.innerHTML = `<audio controls src="${msg.content}"></audio>`;
+              } else {
+                  div.textContent = msg.content;
+              }
+              const ts = document.createElement("div");
+              ts.className = "timestamp";
+              ts.textContent = formatWaktu(msg.timestamp);
+              div.appendChild(ts);
+              chatBox.appendChild(div);
+          });
+          chatBox.scrollTop = chatBox.scrollHeight;
+      }
   });
 }
 
@@ -85,12 +91,12 @@ function loadChatInterface() {
 function kirimPesan(teks) {
   const id = db.ref().push().key;
   db.ref(`chats/${path}/pesan/${id}`).set({
-    from: adminName,
-    to: userName,
-    content: teks,
-    type: "text",
-    timestamp: Date.now(),
-    read: false
+      from: adminName,
+      to: userName,
+      content: teks,
+      type: "text",
+      timestamp: Date.now(),
+      read: false
   });
 }
 
@@ -99,79 +105,120 @@ function uploadFile(file) {
   const storageRef = storage.ref(`chats/${path}/files/${file.name}`);
   const uploadTask = storageRef.put(file);
   uploadTask.on("state_changed", snapshot => {
-    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log(`Upload is ${progress}% done`);
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(`Upload is ${progress}% done`);
   }, error => {
-    console.error("Error uploading file:", error);
+      console.error("Error uploading file:", error);
   }, () => {
-    uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-      const id = db.ref().push().key;
-      db.ref(`chats/${path}/pesan/${id}`).set({
-        from: adminName,
-        to: userName,
-        content: downloadURL,
-        type: "file",
-        timestamp: Date.now(),
-        read: false
+      uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+          const id = db.ref().push().key;
+          db.ref(`chats/${path}/pesan/${id}`).set({
+              from: adminName,
+              to: userName,
+              content: downloadURL,
+              type: "file",
+              timestamp: Date.now(),
+              read: false
+          });
       });
-    });
   });
 }
 
-// Fungsi rekam audio (simulasi)
-function startRecord() {
-  isRecording = true;
-  recordStart = Date.now();
-  console.log("Mulai rekam suara...");
+// Fungsi login pengguna
+function login(email, password) {
+  auth.signInWithEmailAndPassword(email, password)
+      .then(userCredential => {
+          const user = userCredential.user;
+          console.log("Pengguna terautentikasi:", user.email);
+
+          // Ambil nama pengguna berdasarkan email
+          const userRef = db.ref(`akun`).orderByChild("email").equalTo(user.email).limitToFirst(1);
+          userRef.once("value", snapshot => {
+              if (snapshot.exists()) {
+                  const data = snapshot.val();
+                  const userKey = Object.keys(data)[0]; // Ambil key pengguna yang ditemukan
+                  adminName = data[userKey].nama; // Ambil nama pengguna
+                  localStorage.setItem("loggedInUser", adminName); // Simpan nama pengguna ke localStorage
+                  window.location.href = "chat.html"; // Redirect ke halaman chat
+              } else {
+                  console.error("Pengguna tidak ditemukan di database.");
+              }
+          });
+      })
+      .catch(error => {
+          console.error("Login gagal:", error.message);
+      });
 }
 
-function stopRecord() {
-  const duration = Date.now() - recordStart;
-  isRecording = false;
-  if (duration > 800) {
-    const dummyAudioUrl = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-    const id = db.ref().push().key;
-    db.ref(`chats/${path}/pesan/${id}`).set({
-      from: adminName,
-      to: userName,
-      content: dummyAudioUrl,
-      type: "audio",
-      timestamp: Date.now(),
-      read: false
-    });
-  }
+// Fungsi login dengan akun Google
+function loginWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+      .then(result => {
+          const user = result.user;
+          console.log("Pengguna terautentikasi dengan Google:", user.email);
+
+          // Ambil nama pengguna berdasarkan email
+          const userRef = db.ref(`akun`).orderByChild("email").equalTo(user.email).limitToFirst(1);
+          userRef.once("value", snapshot => {
+              if (snapshot.exists()) {
+                  const data = snapshot.val();
+                  const userKey = Object.keys(data)[0]; // Ambil key pengguna yang ditemukan
+                  adminName = data[userKey].nama; // Ambil nama pengguna
+                  localStorage.setItem("loggedInUser", adminName); // Simpan nama pengguna ke localStorage
+                  window.location.href = "chat.html"; // Redirect ke halaman chat
+              } else {
+                  console.error("Pengguna tidak ditemukan di database.");
+              }
+          });
+      })
+      .catch(error => {
+          console.error("Login Google gagal:", error.message);
+      });
 }
 
-// Kirim pesan teks
+// Event Listener untuk kirim pesan teks
 sendBtn.addEventListener("click", () => {
-  if (isRecording) return;
   const teks = msgInput.value.trim();
   if (teks) {
-    kirimPesan(teks);
-    msgInput.value = "";
+      kirimPesan(teks);
+      msgInput.value = "";
   }
 });
 
-// Tombol kirim digunakan untuk merekam suara juga
-sendBtn.addEventListener("mousedown", startRecord);
-sendBtn.addEventListener("mouseup", stopRecord);
-
-// Unggah file
+// Event Listener untuk unggah file
 fileInput.addEventListener("change", e => {
   const file = e.target.files[0];
   if (file) {
-    uploadFile(file);
+      uploadFile(file);
   }
 });
 
 // Autentikasi dan inisialisasi chat
 auth.onAuthStateChanged(user => {
+  console.log("Status login berubah");
   if (user) {
-    adminName = user.displayName || "Admin";
-    localStorage.setItem("loggedInUser", adminName);
-    loadChatInterface();
+      console.log("Pengguna terautentikasi:", user.email);
+
+      // Ambil nama pengguna berdasarkan email
+      const userRef = db.ref(`akun`).orderByChild("email").equalTo(user.email).limitToFirst(1);
+      userRef.once("value", snapshot => {
+          if (snapshot.exists()) {
+              const data = snapshot.val();
+              const userKey = Object.keys(data)[0]; // Ambil key pengguna yang ditemukan
+              adminName = data[userKey].nama; // Ambil nama pengguna
+              localStorage.setItem("loggedInUser", adminName); // Simpan nama pengguna ke localStorage
+              loadChatInterface(); // Panggil fungsi untuk memuat antarmuka chat
+          } else {
+              console.error("Pengguna tidak ditemukan di database.");
+          }
+      });
   } else {
-    alert("Anda belum login. Silakan login terlebih dahulu.");
-    window.location.href = "login.html";
+      console.log("Pengguna tidak terautentikasi");
+      alert("Anda belum login. Silakan login terlebih dahulu.");
+      window.location.href = "login.html"; // Redirect ke halaman login
   }
 });
+
+// Menampilkan nama pengguna yang sedang login
+console.log("Nama pengguna yang terautentikasi:", localStorage.getItem("loggedInUser"));
