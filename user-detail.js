@@ -125,7 +125,7 @@ function loadRiwayat() {
             const sistole = data.SISTOLE || "-";
             const diastole = data.DIASTOLE || "-";
 
-            li.textContent = `Pengukuran ${index}`;
+            li.textContent = `Tanggal: ${tanggal}`;
             li.style.cursor = "pointer";
             li.addEventListener("click", () => {
                 const query = new URLSearchParams({
