@@ -33,31 +33,26 @@ function updateAkun(id) {
 
 // Fungsi untuk mendengarkan pembacaan pengukuran dari Firebase
 function listenToMeasurements() {
-    const tekananRef = db.ref("TEKANANDARAH");
-    const bpmRef = db.ref("DETAKJANTUNG/BPM");
+    const dataRef = db.ref("data/node123");  // akses ke node baru
 
-    tekananRef.on("value", (snapshot) => {
+    dataRef.on("value", (snapshot) => {
         const data = snapshot.val();
         if (data) {
-            const diastole = data.DIASTOLE || "Data tidak tersedia";
-            const sistole = data.SISTOLE || "Data tidak tersedia";
+            const bpm = data.bpm || "Data tidak tersedia";
+            const sistole = data.sistole || "Data tidak tersedia";
+            const diastole = data.diastole || "Data tidak tersedia";
 
-            document.getElementById("diastole").textContent = diastole;
+            document.getElementById("bpm").textContent = bpm;
             document.getElementById("sistole").textContent = sistole;
+            document.getElementById("diastole").textContent = diastole;
 
+            document.getElementById('statusBpm').textContent = isNormalBpm(parseInt(bpm)) ? "Normal" : "Tidak Normal";
             document.getElementById('statusSistol').textContent = isNormalSistole(parseInt(sistole)) ? "Normal" : "Tidak Normal";
             document.getElementById('statusDiastol').textContent = isNormalDiastole(parseInt(diastole)) ? "Normal" : "Tidak Normal";
         }
     });
-
-    bpmRef.on("value", (snapshot) => {
-        const bpm = snapshot.val();
-        if (bpm) {
-            document.getElementById("bpm").textContent = bpm;
-            document.getElementById('statusBpm').textContent = isNormalBpm(parseInt(bpm)) ? "Normal" : "Tidak Normal";
-        }
-    });
 }
+
 
 // Fungsi cek normal/tidak
 function isNormalBpm(bpm) {
