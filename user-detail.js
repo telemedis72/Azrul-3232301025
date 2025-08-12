@@ -39,12 +39,12 @@ function listenToMeasurements() {
         const data = snapshot.val();
         if (data) {
             const bpm = data.bpm || "Data tidak tersedia";
-            const sistole = data.sistole || "Data tidak tersedia";
-            const diastole = data.diastole || "Data tidak tersedia";
+            const sistole = data.sistolik || "Data tidak tersedia";
+            const diastole = data.diastolik || "Data tidak tersedia";
 
             document.getElementById("bpm").textContent = bpm;
-            document.getElementById("sistole").textContent = sistole;
-            document.getElementById("diastole").textContent = diastole;
+            document.getElementById("sistolik").textContent = sistole;
+            document.getElementById("diastolik").textContent = diastole;
 
             document.getElementById('statusBpm').textContent = isNormalBpm(parseInt(bpm)) ? "Normal" : "Tidak Normal";
             document.getElementById('statusSistol').textContent = isNormalSistole(parseInt(sistole)) ? "Normal" : "Tidak Normal";
